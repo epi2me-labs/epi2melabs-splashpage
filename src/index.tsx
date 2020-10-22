@@ -19,7 +19,7 @@ import { ITrackedNotebookList, NotebookAction } from './types';
 
 import { labsLogoIcon } from './asset';
 
-const PLUGIN_ID = 'epi2melabs-splashpage:settings';
+const PLUGIN_ID = '@epi2melabs/epi2melabs-splashpage:settings';
 
 const COMMAND = 'create-epi2me-labs-splashpage';
 

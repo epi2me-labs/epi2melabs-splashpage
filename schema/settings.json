@@ -13,7 +13,7 @@
         "type": "string",
         "title": "Template Directory",
         "description": "Sets the location to monitor for look for template notebooks.",
-        "default": "/templates"
+        "default": "/epi2me-resources/tutorials/"
       }
     }
   }
