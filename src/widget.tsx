@@ -90,7 +90,7 @@ const LauncherNotebookListItem = ({
   }
 
   return (
-    <button onClick={() => action}>
+    <button onClick={() => action()}>
       <div>
         <LabIcon.resolveReact
           icon={notebookIcon}
@@ -162,8 +162,8 @@ const LauncherNotebookList = ({
           <li key={Item.path}>
             <LauncherNotebookListItem
               TrackedNotebook={Item}
-              icon={icon}
               action={() => actionCallbacks[action](Item.path, docTrack)} 
+              icon={icon}
             />
           </li>
         ))}
