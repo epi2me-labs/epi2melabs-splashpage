@@ -30,9 +30,10 @@ const createLauncherWidget = async (
   sections: ITrackedNotebookList[],
   shell: JupyterFrontEnd.IShell,
   docTrack: IDocumentManager,
+  setting: ISettingRegistry.ISettings
 ): Promise<void> => {
   // Build the widget and add it to the main area
-  const content = new Epi2melabsLauncherWidget(docTrack, sections);
+  const content = new Epi2melabsLauncherWidget(setting, docTrack, sections);
   const widget = new MainAreaWidget<Epi2melabsLauncherWidget>({ content });
   widget.title.label = 'EPI2ME Labs';
   shell.add(widget, 'main');
@@ -70,14 +71,14 @@ const extension: JupyterFrontEndPlugin<void> = {
           action: NotebookAction.clone
         }
       ]
-      createLauncherWidget(sections, shell, docTrack);
+      createLauncherWidget(sections, shell, docTrack, setting);
 
       commands.addCommand(COMMAND, {
         caption: 'Create an EPI2ME Labs launcher',
         label: 'EPI2ME Labs',
         icon: args => (args['isPalette'] ? null : labsLogoIcon),
         execute: () => {
-         createLauncherWidget(sections, shell, docTrack)
+         createLauncherWidget(sections, shell, docTrack, setting)
         }
       });
    

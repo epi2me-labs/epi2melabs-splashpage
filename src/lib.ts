@@ -1,13 +1,15 @@
 import { IDocumentManager } from '@jupyterlab/docmanager';
 
+import { ISettingRegistry } from '@jupyterlab/settingregistry';
+
 import { ITrackedNotebook, NotebookAction } from './types';
 
 const IPYNB = '.ipynb'
 
 
 export const actionCallbacks = {
-    [NotebookAction.clone]: async (e: string, docTrack: IDocumentManager) => {
-        await docTrack.copy(e, '.').then(e => {
+    [NotebookAction.clone]: async (e: string, docTrack: IDocumentManager, settings: ISettingRegistry.ISettings) => {
+        await docTrack.copy(e, settings.get('working_dir').composite as string).then(e => {
           docTrack.open(e.path)
         })
     },

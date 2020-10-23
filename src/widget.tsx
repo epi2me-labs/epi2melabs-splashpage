@@ -2,6 +2,8 @@ import { ReactWidget } from '@jupyterlab/apputils';
 
 import { IDocumentManager } from '@jupyterlab/docmanager';
 
+import { ISettingRegistry } from '@jupyterlab/settingregistry';
+
 import { getNotebooks, actionCallbacks } from './lib';
 
 import { notebookIcon, LabIcon } from '@jupyterlab/ui-components';
@@ -122,8 +124,13 @@ const LauncherNotebookListItem = ({
 
 const LauncherNotebookList = ({ 
   TrackedNotebookList,
-  docTrack, 
-}: {TrackedNotebookList: ITrackedNotebookList, docTrack: IDocumentManager}): JSX.Element => {
+  docTrack,
+  setting
+}: {
+  TrackedNotebookList: ITrackedNotebookList, 
+  docTrack: IDocumentManager,
+  setting: ISettingRegistry.ISettings,
+}): JSX.Element => {
   const { path, name, icon, tooltip, action } = TrackedNotebookList;
 
   const [ notebooks, setNotebooks ] = useState([]);
@@ -162,7 +169,7 @@ const LauncherNotebookList = ({
           <li key={Item.path}>
             <LauncherNotebookListItem
               TrackedNotebook={Item}
-              action={() => actionCallbacks[action](Item.path, docTrack)} 
+              action={() => actionCallbacks[action](Item.path, docTrack, setting)} 
               icon={icon}
             />
           </li>
@@ -175,10 +182,15 @@ const LauncherNotebookList = ({
 
 export class Epi2melabsLauncherWidget extends ReactWidget {
 
-  constructor(docTrack: IDocumentManager, sections: ITrackedNotebookList[]) {
+  constructor(
+    setting: ISettingRegistry.ISettings,
+    docTrack: IDocumentManager, 
+    sections: ITrackedNotebookList[]
+  ) {
     super();
     this.docTrack = docTrack;
     this.sections = sections;
+    this.setting = setting;
 
     this.addClass('jp-ReactWidget');
   }
@@ -191,6 +203,7 @@ export class Epi2melabsLauncherWidget extends ReactWidget {
           <LauncherNotebookList
             TrackedNotebookList={Item}
             docTrack={this.docTrack}
+            setting={this.setting}
           />
         ))}
         <LauncherFooter />
@@ -200,4 +213,5 @@ export class Epi2melabsLauncherWidget extends ReactWidget {
 
   public docTrack: IDocumentManager;
   public sections: ITrackedNotebookList[];
+  public setting: ISettingRegistry.ISettings;
 }
