@@ -7,13 +7,13 @@
         "type": "string",
         "title": "Working Directory",
         "description": "Sets the location to monitor for active notebooks.",
-        "default": "/"
+        "default": "/epi2melabs"
       },
       "template_dir": {
         "type": "string",
         "title": "Template Directory",
-        "description": "Sets the location to monitor for look for template notebooks.",
-        "default": "/epi2me-resources/tutorials/"
+        "description": "Sets the location to monitor for template notebooks.",
+        "default": "/epi2me-resources/tutorials"
       }
     }
   }
