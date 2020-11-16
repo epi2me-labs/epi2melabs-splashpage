@@ -55,18 +55,20 @@ const extension: JupyterFrontEndPlugin<void> = {
    Promise.all([app.restored, settings.load(PLUGIN_ID)])
     .then(([, setting]) => {
       // Specify the sections to be shown
+      const workdirPath = setting.get('working_dir').composite as string
+      const templatePath = setting.get('template_dir').composite as string
       const sections: ITrackedNotebookList[] = [
         {
           name: 'Recent notebooks', 
-          tooltip: 'Displays notebooks in the root "/" directory', 
-          path: setting.get('working_dir').composite as string,
+          tooltip: `Displays notebooks in the ${workdirPath} directory`, 
+          path: workdirPath,
           icon: runIcon,
           action: NotebookAction.open
         }, 
         {
           name: 'EPI2ME Labs Templates', 
           tooltip: 'Click on a template to copy it and get started', 
-          path: setting.get('template_dir').composite as string,
+          path: templatePath,
           icon: copyIcon,
           action: NotebookAction.clone
         }

@@ -81,7 +81,7 @@ const LauncherNotebookListItem = ({
   action: () => void,
   icon: LabIcon,
 }) => {
-  const { name, last_modified } = TrackedNotebook;
+  const { name, path, last_modified } = TrackedNotebook;
 
   const handleExtractName = (): string => {
     return name.split('_').join(' ').split('.ipynb').join('')
@@ -104,6 +104,9 @@ const LauncherNotebookListItem = ({
       </div>
       <div className="tutorialDetails">
         <h3>{handleExtractName()}</h3>
+        <p>
+          Path: {path}
+        </p>
         <p>
           Last modified: {handleFormatUpdated()}
         </p>
