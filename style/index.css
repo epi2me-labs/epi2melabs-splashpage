@@ -135,12 +135,12 @@
 }
 
 .tutorialsLauncherListGrid li h3 {
-    padding: 0 0 5px 0;
     text-transform: capitalize;
     text-align: left;
 }
 
 .tutorialsLauncherListGrid li p {
+    padding: 7.5px 0 0 0;
     color: darkgray;
     text-align: left;
 }
@@ -180,6 +180,7 @@
     border: none;
     cursor: pointer;
     background-color: transparent;
+    font: inherit;
 }
 
 .launcherTooltipIcon {
