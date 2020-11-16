@@ -166,7 +166,7 @@ const LauncherNotebookList = ({
       </div>
       <ul className="tutorialsLauncherListGrid">
         {notebooks.map(Item => (
-          <li key={Item.path}>
+          <li key={`notebookItem-${Item.path}`}>
             <LauncherNotebookListItem
               TrackedNotebook={Item}
               action={() => actionCallbacks[action](Item.path, docTrack, setting)} 
@@ -200,7 +200,8 @@ export class Epi2melabsLauncherWidget extends ReactWidget {
       <div className="tutorialsLauncher"> 
         <LauncherHeader />
         {this.sections.map(Item => (
-          <LauncherNotebookList
+          <LauncherNotebookList 
+            key={`notebook-${Item.name}`}
             TrackedNotebookList={Item}
             docTrack={this.docTrack}
             setting={this.setting}

@@ -18,20 +18,30 @@ export const actionCallbacks = {
     }
 }
 
+export const getNestedFiles = async (
+  path: string, 
+  docTrack: IDocumentManager,
+): Promise<any[]> => {
+  return (await Promise.all(
+    (await docTrack.services.contents.get(path))
+    .content
+    .map((Item: any) => {
+      return Item.type === 'directory'
+      ? getNestedFiles(Item.path, docTrack)
+      : Item
+    })
+  )).flat(Infinity)
+}
 
 export const getNotebooks = async (
-  path: string, 
-  docTrack: IDocumentManager, 
+  path: string,
+  docTrack: IDocumentManager,
 ): Promise<ITrackedNotebook[]> => {
-  return await docTrack.services.contents.get(path).then(contents => {
-    return contents.content
+  return (await getNestedFiles(path, docTrack))
     .filter((Item: any) => Item.path.endsWith(IPYNB))
-    .map((Item: any): ITrackedNotebook => {
-      return {
-        name: Item.name, 
-        path: Item.path,
-        last_modified: Item.last_modified
-      }
-    });
-  });
+    .map((Item: any): ITrackedNotebook => ({
+      name: Item.name, 
+      path: Item.path,
+      last_modified: Item.last_modified
+    }));
 }
