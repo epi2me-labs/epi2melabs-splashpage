@@ -9,7 +9,7 @@
 /* Type */
 .tutorialsLauncher h1 {
     font-weight: 600;
-    font-size: 52px;
+    font-size: 48px;
 }
 
 .tutorialsLauncher h2 {
@@ -49,9 +49,13 @@
 .tutorialsLauncherHeader p {
     max-width: 800px;
     text-align: center;
-    font-size: 17px;
+    font-size: 16px;
     line-height: 1.7em;
     color: white;
+}
+
+.tutorialsLauncherHeader img {
+    width: 75px;
 }
 
 /* Tutorials */
