@@ -18,7 +18,7 @@ import moment from 'moment';
 
 
 export const LabsLogo = () => {
-  const logoSVGBlob = new Blob([logoSVG], {type: 'image/svg+xml'});
+  const logoSVGBlob = new Blob([logoSVG], { type: 'image/svg+xml' });
   const url = URL.createObjectURL(logoSVGBlob);
 
   return (
@@ -29,7 +29,7 @@ export const LabsLogo = () => {
 }
 
 
-const LauncherHeader = ({}) => (
+const LauncherHeader = ({ }) => (
   <div className="tutorialsLauncherHeader">
     <LabsLogo />
     <h1>Welcome to EPI2ME Labs</h1>
@@ -42,14 +42,14 @@ const LauncherHeader = ({}) => (
 );
 
 
-const LauncherFooter = ({}) => (
+const LauncherFooter = ({ }) => (
   <div className="tutorialsLauncherFooter">
     <p>@2008 - {moment().year()} Oxford Nanopore Technologies. All rights reserved</p>
   </div>
 );
 
 
-const LauncherTooltip = ({ tooltip }: {tooltip: string}) => {
+const LauncherTooltip = ({ tooltip }: { tooltip: string }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   const handleToggleVisible = () => {
@@ -57,10 +57,10 @@ const LauncherTooltip = ({ tooltip }: {tooltip: string}) => {
   }
 
   return (
-    <button 
-      className="launcherTooltip" 
-      onClick={handleToggleVisible} 
-      onMouseEnter={handleToggleVisible} 
+    <button
+      className="launcherTooltip"
+      onClick={handleToggleVisible}
+      onMouseEnter={handleToggleVisible}
       onMouseLeave={handleToggleVisible}
     >
       <div className="launcherTooltipIcon">?</div>
@@ -125,18 +125,18 @@ const LauncherNotebookListItem = ({
 }
 
 
-const LauncherNotebookList = ({ 
+const LauncherNotebookList = ({
   TrackedNotebookList,
   docTrack,
   setting
 }: {
-  TrackedNotebookList: ITrackedNotebookList, 
+  TrackedNotebookList: ITrackedNotebookList,
   docTrack: IDocumentManager,
   setting: ISettingRegistry.ISettings,
 }): JSX.Element => {
   const { path, name, icon, tooltip, action } = TrackedNotebookList;
 
-  const [ notebooks, setNotebooks ] = useState([]);
+  const [notebooks, setNotebooks] = useState([]);
 
   const handleUpdateSections = async () => {
     setNotebooks(await getNotebooks(path, docTrack));
@@ -150,7 +150,9 @@ const LauncherNotebookList = ({
 
     const fileSignal = docTrack.services.contents.fileChanged;
     fileSignal.connect(slotHandleUpdateSections)
-    return () => fileSignal.disconnect(slotHandleUpdateSections)
+    return () => {
+      fileSignal.disconnect(slotHandleUpdateSections)
+    }
   }, [])
 
   if (notebooks.length === 0) {
@@ -172,22 +174,22 @@ const LauncherNotebookList = ({
           <li key={`notebookItem-${Item.path}`}>
             <LauncherNotebookListItem
               TrackedNotebook={Item}
-              action={() => actionCallbacks[action](Item.path, docTrack, setting)} 
+              action={() => actionCallbacks[action](Item.path, docTrack, setting)}
               icon={icon}
             />
           </li>
         ))}
       </ul>
     </div>
-    )
-  };
+  )
+};
 
 
 export class Epi2melabsLauncherWidget extends ReactWidget {
 
   constructor(
     setting: ISettingRegistry.ISettings,
-    docTrack: IDocumentManager, 
+    docTrack: IDocumentManager,
     sections: ITrackedNotebookList[]
   ) {
     super();
@@ -200,10 +202,10 @@ export class Epi2melabsLauncherWidget extends ReactWidget {
 
   render(): JSX.Element {
     return (
-      <div className="tutorialsLauncher"> 
+      <div className="tutorialsLauncher">
         <LauncherHeader />
         {this.sections.map(Item => (
-          <LauncherNotebookList 
+          <LauncherNotebookList
             key={`notebook-${Item.name}`}
             TrackedNotebookList={Item}
             docTrack={this.docTrack}

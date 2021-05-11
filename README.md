@@ -1,19 +1,38 @@
-# EPI2ME Labs splashpage
+# epi2melabs_splashpage
 
-Launch our tutorials the easy way! 
+![Github Actions Status](https://github.com/epi2me-labs/epi2melabs-splashpage/workflows/Build/badge.svg)
+
+Launch our tutorials the easy way!
 
 Accompanies the EPI2ME labs experience. Not for general use.
 
+
 ## Requirements
 
-* JupyterLab >= 2.0
+* JupyterLab >= 3.0
 
-### Install
+## Install
+
+To install the extension, execute:
 
 ```bash
-
-jupyter labextension install @epi2melabs/epi2melabs-splashpage
+pip install epi2melabs_splashpage
 ```
+
+## Uninstall
+
+To remove the extension, execute:
+
+```bash
+pip uninstall epi2melabs_splashpage
+```
+
+
+## Contributing
+
+### Development install
+
+Note: You will need NodeJS to build the extension package.
 
 The `jlpm` command is JupyterLab's pinned version of
 [yarn](https://yarnpkg.com/) that is installed with JupyterLab. You may use
@@ -21,34 +40,38 @@ The `jlpm` command is JupyterLab's pinned version of
 
 ```bash
 # Clone the repo to your local environment
-# Move to epi2melabs_code_folding directory
-
-# Install dependencies
-jlpm
-# Build Typescript source
-jlpm build
+# Change directory to the epi2melabs_splashpage directory
+# Install package in development mode
+pip install -e .
 # Link your development version of the extension with JupyterLab
-jupyter labextension install .
-# Rebuild Typescript source after making changes
-jlpm build
-# Rebuild JupyterLab after making any changes
-jupyter lab build
+jupyter labextension develop . --overwrite
+# Rebuild extension Typescript source after making changes
+jlpm run build
 ```
 
-You can watch the source directory and run JupyterLab in watch mode to watch for changes in the extension's source and automatically rebuild the extension and application.
+You can watch the source directory and run JupyterLab at the same time in different terminals to watch for changes in the extension's source and automatically rebuild the extension.
 
 ```bash
-# Watch the source directory in another terminal tab
-jlpm watch
-# Run jupyterlab in watch mode in one terminal tab
-jupyter lab --watch
+# Watch the source directory in one terminal, automatically rebuilding when needed
+jlpm run watch
+# Run JupyterLab in another terminal
+jupyter lab
 ```
 
-Now every change will be built locally and bundled into JupyterLab. Be sure to refresh your browser page after saving file changes to reload the extension (note: you'll need to wait for webpack to finish, which can take 10s+ at times).
+With the watch command running, every saved change will immediately be built locally and available in your running JupyterLab. Refresh JupyterLab to load the change in your browser (you may need to wait several seconds for the extension to be rebuilt).
 
-### Uninstall
+By default, the `jlpm run build` command generates the source maps for this extension to make it easier to debug using the browser dev tools. To also generate source maps for the JupyterLab core extensions, you can run the following command:
 
 ```bash
-
-jupyter labextension uninstall @epi2melabs/epi2melabs-splashpage
+jupyter lab build --minimize=False
 ```
+
+### Development uninstall
+
+```bash
+pip uninstall epi2melabs_splashpage
+```
+
+In development mode, you will also need to remove the symlink created by `jupyter labextension develop`
+command. To find its location, you can run `jupyter labextension list` to figure out where the `labextensions`
+folder is located. Then you can remove the symlink named `@epi2melabs/epi2melabs-splashpage` within that folder.
